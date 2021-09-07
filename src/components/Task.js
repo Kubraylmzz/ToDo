@@ -6,15 +6,29 @@ const Task = props => {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View>
-          <Image
-            source={require('../../src/assets/daire.png')}
-            style={{
-              width: 60,
-              height: 60,
-              resizeMode: 'contain',
-              right: 20,
-              height: 25,
-            }}></Image>
+          {props.isActive ? (
+            <Image
+              source={require('../../src/assets/tik.png')}
+              style={{
+                width: 60,
+                height: 60,
+                resizeMode: 'contain',
+                right: 20,
+                height: 25,
+              }}
+            />
+          ) : (
+            <Image
+              source={require('../../src/assets/daire.png')}
+              style={{
+                width: 60,
+                height: 60,
+                resizeMode: 'contain',
+                right: 20,
+                height: 25,
+              }}
+            />
+          )}
         </View>
         <Text style={styles.itemText}>{props.text}</Text>
       </View>

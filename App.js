@@ -8,17 +8,36 @@ import {
   TouchableOpacity,
   Keyboard,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Task from './src/components/Task';
 
 export default function App() {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
   const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
+    const randomId = Math.floor(Math.random() * 1000);
+    const a = taskItems.filter(x => x.id === randomId);
+
+    if (a.length === 0) {
+      const obj = {
+        id: randomId,
+        taskText: task,
+        isActive: false,
+      };
+      setTaskItems([...taskItems, obj]);
+      Keyboard.dismiss();
+      setTask('');
+    } else {
+      Alert('ERROR');
+    }
+  };
+
+  const completeTask = index => {
+    let itemsCopy = [...taskItems];
+    itemsCopy[index].isActive = !itemsCopy[index].isActive;
+    setTaskItems(itemsCopy);
   };
 
   return (
@@ -37,20 +56,25 @@ export default function App() {
           </View>
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.tasksWrapper}>
           <View style={styles.items}>
             {taskItems.map((item, index) => {
+              console.log(item, 'ITEM');
               return (
                 <TouchableOpacity
                   key={index}
                   onPress={() => completeTask(index)}>
-                  <Task text={item} />
+                  <Task text={item.taskText} isActive={item.isActive} />
                 </TouchableOpacity>
               );
             })}
           </View>
         </View>
+
+        {/* <TouchableOpacity onPress={() => console.log(taskItems, 'BÜTÜN DATA')}>
+          <Text>HEPSİ</Text>
+        </TouchableOpacity> */}
       </ScrollView>
     </View>
   );
@@ -74,8 +98,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   asd: {
-    // padding: 5,
-    // bottom: 10,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 300,
+    width: 310,
   },
   addWrapper: {
     width: 60,

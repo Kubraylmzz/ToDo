@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Icon,
+} from 'react-native';
 
 const Task = props => {
   return (
@@ -30,6 +37,7 @@ const Task = props => {
             />
           )}
         </View>
+        <View></View>
         <Text style={styles.itemText}>{props.text}</Text>
       </View>
     </View>

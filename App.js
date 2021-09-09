@@ -9,6 +9,7 @@ import {
   Keyboard,
   ScrollView,
   Alert,
+  Button,
 } from 'react-native';
 import Task from './src/components/Task';
 
@@ -40,6 +41,16 @@ export default function App() {
     setTaskItems(itemsCopy);
   };
 
+  // const deleteTask = index => {
+  //   let itemsCopy = [...taskItems];
+  //   itemsCopy.splice(index, 1);
+  //   setTaskItems(itemsCopy);
+  // };
+
+  const deleteAll = () => {
+    setTaskItems([]);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ToDo</Text>
@@ -50,11 +61,15 @@ export default function App() {
           value={task}
           onChangeText={text => setTask(text)}
         />
+
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
+      </View>
+      <View style={styles.delete}>
+        <Button title="Delete All" onPress={() => deleteAll()}></Button>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.tasksWrapper}>
@@ -124,5 +139,10 @@ const styles = StyleSheet.create({
   },
   addText: {
     fontSize: 30,
+  },
+  delete: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
   },
 });
